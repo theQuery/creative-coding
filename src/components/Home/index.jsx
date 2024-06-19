@@ -14,8 +14,8 @@ function Home() {
           </span>
         </h1>
         <p className='home__description'>
-          Presenting a collection of visions, each one born from the dreams of a
-          lonely node adrift in the boundless expanse of the universe's mind.
+          Unveil a collection of visions, each one woven from the dreams
+          of a lonely node in the boundless void of the universe's mind.
         </p>
       </div>
       <div className='home__projects'>
