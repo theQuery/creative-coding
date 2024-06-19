@@ -13,21 +13,21 @@ import PianoOrbs from '../../projects/PianoOrbs';
 const projects = {
   'space-soarer': {
     name: 'Space Soarer',
-    code: 'https://github.com/theQuery',
+    code: 'https://github.com/theQuery/creative-coding/tree/main/src/projects/SpaceSoarer',
     info: 'Press W to move forward and Shift to boost.',
     date: 'May 21st, 2024',
     component: SpaceSoarer
   },
   'magic-wand': {
     name: 'Magic Wand',
-    code: 'https://github.com/theQuery',
+    code: 'https://github.com/theQuery/creative-coding/tree/main/src/projects/MagicWand',
     info: 'Click to cast a spell.',
     date: 'May 18th, 2024',
     component: MagicWand
   },
   'piano-orbs': {
     name: 'Piano Orbs',
-    code: 'https://github.com/theQuery',
+    code: 'https://github.com/theQuery/creative-coding/tree/main/src/projects/PianoOrbs',
     info: 'Watch the orbs play notes as they hit the walls.',
     date: 'February 11th, 2024',
     component: PianoOrbs
