@@ -32,7 +32,7 @@
             background: white;
             transform: skewX(-30deg) translateX(calc(var(--shine-offset) * -1));
             filter: blur(50px);
-            animation: shine 3s ease-in-out infinite;
+            animation: plate__shine 3s ease-in-out infinite;
         }
     }
 
@@ -45,7 +45,7 @@
     }
 }
 
-@keyframes shine {
+@keyframes plate__shine {
     30% {
         translate: var(--shine-distance);
     }
@@ -59,6 +59,7 @@
     margin-block: 0 0.5rem;
     color: var(--primary-font-color);
     font-size: 1rem;
+    font-weight: normal;
 }
 
 .plate__description {
