@@ -58,7 +58,7 @@
                         rgba(95, 21, 242, 0.2) 70%, rgba(186, 12, 248, 0.2) 80%,
                         rgba(251, 7, 217, 0.2) 90%, rgba(255, 0, 0, 0.2) 100%);
                 background-size: 500%;
-                animation: animate-background 5s linear infinite;
+                animation: project__move-background 5s linear infinite;
             }
 
             &:last-child::after {
@@ -75,7 +75,7 @@
     }
 }
 
-@keyframes animate-background {
+@keyframes project__move-background {
     100% {
         background-position: -500% 0;
     }

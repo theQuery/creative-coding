@@ -34,10 +34,10 @@
     color: transparent;
     font-family: var(--tertiary-font);
     font-size: 3rem;
-    animation: animate-background 5s linear infinite;
+    animation: home__move-background 5s linear infinite;
 }
 
-@keyframes animate-background {
+@keyframes home__move-background {
     100% {
         background-position: -200%;
     }
