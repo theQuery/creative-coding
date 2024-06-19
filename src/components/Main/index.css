@@ -18,15 +18,16 @@
 :root {
   background: black;
   color-scheme: dark light;
+  user-select: none;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
   margin: 0;
-  user-select: none;
 }
 
 ::-webkit-scrollbar {
