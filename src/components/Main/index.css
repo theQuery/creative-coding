@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+Double+Pica+SC&family=Kristi&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+
+  --primary-color: hsl(120, 100%, 50%);
+
+  --primary-font-color: hsl(0, 0%, 100%);
+  --secondary-font-color: hsl(0, 0%, 70%);
+
+  --primary-font: Roboto, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --secondary-font: "IM Fell Double Pica SC", serif;
+  --tertiary-font: "Kristi", cursive;
+}
+
+:root {
+  color-scheme: dark light;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  user-select: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}

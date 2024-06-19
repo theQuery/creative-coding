@@ -1,0 +1,67 @@
+.plate {
+    overflow: hidden;
+    max-width: 60ch;
+    padding: 1rem;
+    background: none;
+    border: 2px solid transparent;
+    border-radius: 0.5rem;
+    font-family: var(--primary-font);
+    font-size: 1rem;
+    line-height: 1.5;
+    text-align: start;
+    cursor: pointer;
+    transition-property: background-color, border-color, scale;
+    transition-duration: 0.2s;
+
+    &:hover,
+    &:focus-visible {
+        background: hsl(0, 0%, 50%, 0.1);
+        border-color: hsl(0, 50%, 100%, 0.25);
+        scale: 1.1;
+
+        &::after {
+            --shine-width: 100px;
+            --shine-offset: 150px;
+            --shine-distance: calc(800px + var(--shine-width) + var(--shine-offset));
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 100%;
+            width: var(--shine-width);
+            height: 100%;
+            background: white;
+            transform: skewX(-30deg) translateX(calc(var(--shine-offset) * -1));
+            filter: blur(50px);
+            animation: shine 3s ease-in-out infinite;
+        }
+    }
+
+    &:focus {
+        outline: none;
+    }
+
+    &:active {
+        scale: 1;
+    }
+}
+
+@keyframes shine {
+    30% {
+        translate: var(--shine-distance);
+    }
+
+    100% {
+        translate: var(--shine-distance);
+    }
+}
+
+.plate__label {
+    margin-block: 0 0.5rem;
+    color: var(--primary-font-color);
+    font-size: 1rem;
+}
+
+.plate__description {
+    margin: 0;
+    color: var(--secondary-font-color);
+}

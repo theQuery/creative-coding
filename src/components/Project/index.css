@@ -1,0 +1,89 @@
+.project {
+    /* position: relative; */
+    /* width: 100%;
+    height: 100%; */
+    /* margin: 0; */
+    /* overflow: hidden; */
+    background: black;
+}
+
+.project__component>canvas {
+    position: fixed;
+}
+
+.project__navbar {
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0.5rem;
+    font-family: var(--primary-font);
+    pointer-events: none;
+}
+
+.project__buttons {
+    display: flex;
+    overflow: hidden;
+    pointer-events: all;
+
+    &>button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.5rem;
+        background: none;
+        border-radius: 0.5rem;
+        border: none;
+        font-size: 1rem;
+        cursor: pointer;
+
+        &[data-link='/'] {
+            border-radius: 50%;
+        }
+
+        &:last-child {
+            cursor: help;
+        }
+
+        &:hover,
+        &:focus-visible {
+            background: hsl(0, 0%, 50%, 0.2);
+
+            &[data-link='/'] {
+                background:
+                    linear-gradient(90deg, rgba(255, 0, 0, 0.2) 0%,
+                        rgba(255, 154, 0, 0.2) 10%, rgba(208, 222, 33, 0.2) 20%,
+                        rgba(79, 220, 74, 0.2) 30%, rgba(63, 218, 216, 0.2) 40%,
+                        rgba(47, 201, 226, 0.2) 50%, rgba(28, 127, 238, 0.2) 60%,
+                        rgba(95, 21, 242, 0.2) 70%, rgba(186, 12, 248, 0.2) 80%,
+                        rgba(251, 7, 217, 0.2) 90%, rgba(255, 0, 0, 0.2) 100%);
+                background-size: 500%;
+                animation: animate-background 5s linear infinite;
+            }
+
+            &:last-child::after {
+                content: attr(data-info);
+                margin-left: 0.5rem;
+                text-align: left;
+                white-space: nowrap;
+            }
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+@keyframes animate-background {
+    100% {
+        background-position: -500% 0;
+    }
+}
+
+.project__name {
+    margin: 0;
+    padding: 0.5rem;
+    font-size: 1rem;
+    white-space: nowrap;
+}
