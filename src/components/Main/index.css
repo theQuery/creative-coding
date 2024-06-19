@@ -16,6 +16,7 @@
 }
 
 :root {
+  background: black;
   color-scheme: dark light;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
