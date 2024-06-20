@@ -1,6 +1,7 @@
 import './index.css';
 import { useRef, useEffect } from 'react';
 import getRandInt from '../../utils/getRandInt';
+import tomImage from '../../assets/tom.webp';
 
 class Speck {
     constructor(effect) {
@@ -144,8 +145,10 @@ class Effect {
         this.ripples = [];
         this.mouse = { x: 0, y: 0 };
         this.resizeCanvas();
+        this.setImage();
         window.addEventListener('resize', this.resizeCanvas);
         window.addEventListener('scroll', this.scrollCanvas);
+        window.addEventListener('keydown', this.handleKeys);
         window.addEventListener('mousemove', this.setMousePosition);
         window.addEventListener('click', this.createRipples);
     }
@@ -158,6 +161,32 @@ class Effect {
 
     scrollCanvas = () => {
         // TODO: Create an effect on scroll.
+    }
+
+    handleKeys = event => {
+        if (event.key === ' ') {
+            event.preventDefault();
+            this.toggleImage();
+        }
+    }
+
+    setImage() {
+        if (localStorage.getItem('bgEnabled') === 'true') {
+            const storedImage = localStorage.getItem('bgImage');
+            this.canvas.style.backgroundImage = `radial-gradient(`
+                + `circle at bottom left, hsl(0, 0%, 10%, 0.8), `
+                + `hsl(0, 0%, 0%) 70%), url(${storedImage ?? tomImage})`;
+        } else {
+            this.canvas.style.backgroundImage = 'none';
+        }
+    }
+
+    toggleImage() {
+        localStorage.setItem(
+            'bgEnabled',
+            localStorage.getItem('bgEnabled') !== 'true'
+        );
+        this.setImage();
     }
 
     setMousePosition = ({ x, y }) => {
@@ -236,7 +265,14 @@ function Canvas() {
             animationFrameId = requestAnimationFrame(render);
         }
 
-        return () => cancelAnimationFrame(animationFrameId);
+        return () => {
+            window.removeEventListener('resize', effect.resizeCanvas);
+            window.removeEventListener('scroll', effect.scrollCanvas);
+            window.removeEventListener('keydown', effect.handleKeys);
+            window.removeEventListener('mousemove', effect.setMousePosition);
+            window.removeEventListener('click', effect.createRipples);
+            cancelAnimationFrame(animationFrameId);
+        };
     }, []);
 
     return <canvas className='canvas' ref={ref}></canvas>
