@@ -76,7 +76,7 @@ class Effect {
         this.circle = new Circle(this);
         this.resizeCanvas();
         window.addEventListener('resize', this.resizeCanvas);
-        window.addEventListener('click', this.setClickPosition);
+        window.addEventListener('click', this.setClickPosition, true);
     }
 
     resizeCanvas = () => {
@@ -90,6 +90,7 @@ class Effect {
         this.link = element.dataset.link;
         this.navigating = true;
         this.click = { x: event.x, y: event.y };
+        event.stopPropagation();
     }
 
     render(deltaTime) {
