@@ -239,7 +239,7 @@ class Effect {
 
         const clipboardData = event.clipboardData || window.clipboardData;
         const pastedText = clipboardData.getData('text');
-        const imageURLRegex = /(http(s?):)([/|.|\w|-])*\.(?:jpg|jpeg|gif|png|webp|jfif)/;
+        const imageURLRegex = /(http(s?):)([%/.\w-])*\.(?:jpg|jpeg|gif|png|webp|jfif)/;
 
         if (pastedText.match(imageURLRegex)) {
             this.background.setImage(pastedText);
