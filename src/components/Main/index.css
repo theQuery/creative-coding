@@ -16,6 +16,7 @@
 }
 
 :root {
+  height: 100%;
   background: black;
   color-scheme: dark light;
   user-select: none;
@@ -27,7 +28,13 @@
 }
 
 body {
+  height: 100%;
   margin: 0;
+}
+
+#root {
+  display: grid;
+  height: 100%;
 }
 
 ::-webkit-scrollbar {
