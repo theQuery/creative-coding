@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=IM+Fell+Double+Pica+SC&family=Kristi&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Monoton&family=Kristi&display=swap');
 
 *,
 *::before,
@@ -11,7 +11,7 @@
   --secondary-font-color: hsl(0, 0%, 70%);
 
   --primary-font: Roboto, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  --secondary-font: "IM Fell Double Pica SC", serif;
+  --secondary-font: "Monoton", sans-serif;
   --tertiary-font: "Kristi", cursive;
 }
 

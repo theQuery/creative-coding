@@ -12,17 +12,16 @@ class Speck {
             z: getRandInt(1, 3)
         };
         this.velocity = {
-            x: getRandInt(-150, 150),
-            y: getRandInt(-150, 150)
+            x: 0,
+            y: 300
         };
         this.radius = this.position.z;
-        this.opacity = this.position.z / 3;
-        this.hue = getRandInt(1, 360);
+        this.lightness = this.position.z / 3 * 100;
     }
 
     render() {
-        this.effect.ctx.save()
-        this.effect.ctx.fillStyle = `hsla(${this.hue}, 80%, 80%, ${this.opacity})`;
+        this.effect.ctx.save();
+        this.effect.ctx.fillStyle = `hsl(0, 0%, ${this.lightness}%)`;
         this.effect.ctx.beginPath();
         this.effect.ctx.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI, false);
         this.effect.ctx.fill();
@@ -32,12 +31,10 @@ class Speck {
 
     update(deltaTime) {
         this.updatePosition(deltaTime);
-        this.updateVisuals(deltaTime);
     }
 
     updatePosition(deltaTime) {
         this.velocity.x = this.effect.mouse.x - this.effect.canvas.width / 2;
-        this.velocity.y = this.effect.mouse.y - this.effect.canvas.height / 2;
         this.position.x += this.velocity.x / 30 * this.position.z * deltaTime;
         this.position.y += this.velocity.y / 30 * this.position.z * deltaTime;
 
@@ -53,10 +50,6 @@ class Speck {
             this.position.y = this.effect.canvas.height;
         }
     }
-
-    updateVisuals(deltaTime) {
-        this.hue = (this.hue + 100 * deltaTime) % 360;
-    }
 }
 
 class Trailer {
@@ -71,12 +64,12 @@ class Trailer {
             y: getRandInt(-150, 150)
         };
         this.size = getRandInt(1, 5);
-        this.hue = getRandInt(1, 360);
+        this.lightness = getRandInt(1, 100);
     }
 
     render() {
         this.effect.ctx.save()
-        this.effect.ctx.fillStyle = `hsl(${this.hue}, 80%, 80%)`;
+        this.effect.ctx.fillStyle = `hsl(0, 0%, ${this.lightness}%)`;
         this.effect.ctx.beginPath();
         this.effect.ctx.rect(this.position.x, this.position.y, this.size, this.size);
         this.effect.ctx.fill();
