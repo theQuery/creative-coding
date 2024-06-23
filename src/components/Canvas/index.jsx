@@ -156,7 +156,7 @@ class Background {
 
     setOpacity() {
         const hour = new Date().getHours();
-        const darkness = hour < 12 ? 1 - hour / 12 : (hour - 12) / 12;
+        const darkness = 1 - Math.sin(Math.PI * hour / 24);
         this.opacity = darkness * 0.8 + 0.1;
     }
 
