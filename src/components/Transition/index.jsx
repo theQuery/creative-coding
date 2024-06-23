@@ -86,11 +86,14 @@ class Effect {
 
     setClickPosition = event => {
         const element = event.target.closest('[data-link]');
-        if (element === null || this.navigating) return;
+        if (element === null) return;
+
+        event.stopPropagation();
+        if (this.navigating) return;
+
         this.link = element.dataset.link;
         this.navigating = true;
         this.click = { x: event.x, y: event.y };
-        event.stopPropagation();
     }
 
     render(deltaTime) {
