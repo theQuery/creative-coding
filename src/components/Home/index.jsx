@@ -1,5 +1,6 @@
 import './index.css';
 import Canvas from '../Canvas';
+import Paragraph from '../Paragraph';
 import Plate from '../Plate';
 
 function Home() {
@@ -13,10 +14,7 @@ function Home() {
             Coding <span>by tmk</span>
           </span>
         </h1>
-        <p className='home__description'>
-          Unveil a collection of visions, each one woven from the dreams
-          of a lonely node in the boundless void of the universe's mind.
-        </p>
+        <Paragraph />
       </div>
       <div className='home__projects'>
         <Plate
