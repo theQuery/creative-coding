@@ -6,9 +6,10 @@ import EnterIcon from '../../assets/enter.svg?react';
 import getRandInt from '../../utils/getRandInt';
 
 const paragraphs = [
-  "Dive into a universe where code meets creativity using a collection of interactive canvas projects, each meticulously crafted to bring art and technology together in mesmerizing harmony.",
+  "Dive into a world where code meets creativity. This website is a vibrant collection of my interactive canvas projects, each meticulously crafted to bring art and technology together in mesmerizing harmony.",
   "Explore a diverse range of visual experiences, from generative art and algorithmic animations to dynamic data visualizations and playful experiments. Each project is a testament to the endless possibilities of creative coding, showcasing the beauty and innovation that can be achieved through programming.",
-  "Whether you're a fellow coder, a digital artist, or simply an admirer of the digital arts, I invite you to explore, interact, and be inspired by these creations. Thank you for visiting, and enjoy your journey through my creative coding showcase."
+  "Whether you're a fellow coder, a digital artist, or simply an admirer of the digital arts, I invite you to explore, interact, and be inspired by these creations. Thank you for visiting, and enjoy your journey through my creative coding showcase.",
+  "Signed by yours truly, Tom Morgenshtern Kristoffersen."
 ];
 
 function Paragraph() {
@@ -110,7 +111,6 @@ function Paragraph() {
 
   return <div className='paragraph'>
     <p className='paragraph__text' ref={paragraphRef}>
-      {paragraphText}
       <button
         className='paragraph__button'
         ref={buttonRef}
@@ -120,6 +120,7 @@ function Paragraph() {
           ? getIsLastParagraph() ? <ReplayIcon /> : <NextIcon />
           : <EnterIcon />}
       </button>
+      {paragraphText}
     </p>
   </div>
 }
