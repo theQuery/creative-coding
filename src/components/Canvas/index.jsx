@@ -138,6 +138,8 @@ class Background {
 
         if (localStorage.getItem('bgEnabled') === 'true') {
             this.image = localStorage.getItem('bgImage') ?? tomImage;
+            this.position = { x: 50, y: 50 };
+            this.setPosition();
             this.setOpacity();
             this.setSize();
 
@@ -152,6 +154,11 @@ class Background {
     removeImage() {
         localStorage.removeItem('bgImage');
         this.setImage();
+    }
+
+    setPosition() {
+        const backgroundPosition = `${this.position.x}% ${this.position.y}%`;
+        this.effect.canvas.style.backgroundPosition = backgroundPosition;
     }
 
     setOpacity() {
@@ -189,8 +196,7 @@ class Background {
                 ? Math.max(this.position[axis] - 100 * deltaTime, 0)
                 : Math.min(this.position[axis] + 100 * deltaTime, 100);
 
-            const backgroundPosition = `${this.position.x}% ${this.position.y}%`;
-            this.effect.canvas.style.backgroundPosition = backgroundPosition;
+            this.setPosition();
         }
     }
 }
