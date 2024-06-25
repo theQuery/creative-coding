@@ -1,4 +1,5 @@
 import './index.css';
+import projects from '../../projects';
 import Canvas from '../Canvas';
 import Paragraph from '../Paragraph';
 import Plate from '../Plate';
@@ -17,21 +18,9 @@ function Home() {
         <Paragraph />
       </div>
       <div className='home__projects'>
-        <Plate
-          label='Space Soarer'
-          description='Journey through the boundless expanse of space by pressing the W and Shift keys.'
-          link='/space-soarer'
-        />
-        <Plate
-          label='Magic Wand'
-          description='Wave a magic wand and click to conjure vibrant explosions of color.'
-          link='/magic-wand'
-        />
-        <Plate
-          label='Piano Orbs'
-          description='Witness glowing orbs dancing across your screen, creating a symphony of colors and melodies.'
-          link='/piano-orbs'
-        />
+        {Object.values(projects).map(project => {
+          return <Plate key={project.link} project={project} />
+        })}
       </div>
     </div>
   </div>

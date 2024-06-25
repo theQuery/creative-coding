@@ -1,45 +1,17 @@
 import './index.css';
 import { useState } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
+import projects from '../../projects';
 import BackIcon from '../../assets/back.svg?react';
 import SoundOnIcon from '../../assets/sound-on.svg?react';
 import SoundOffIcon from '../../assets/sound-off.svg?react';
 import CodeIcon from '../../assets/code.svg?react';
 import InfoIcon from '../../assets/info.svg?react';
-import SpaceSoarer from '../../projects/SpaceSoarer';
-import MagicWand from '../../projects/MagicWand';
-import PianoOrbs from '../../projects/PianoOrbs';
-
-const projects = {
-  'space-soarer': {
-    name: 'Space Soarer',
-    code: 'https://github.com/theQuery/creative-coding/tree/main/src/projects/SpaceSoarer',
-    info: 'Press W to move forward and Shift to boost.',
-    date: 'May 21st, 2024',
-    component: SpaceSoarer
-  },
-  'magic-wand': {
-    name: 'Magic Wand',
-    code: 'https://github.com/theQuery/creative-coding/tree/main/src/projects/MagicWand',
-    info: 'Click to cast a spell.',
-    date: 'May 18th, 2024',
-    component: MagicWand
-  },
-  'piano-orbs': {
-    name: 'Piano Orbs',
-    code: 'https://github.com/theQuery/creative-coding/tree/main/src/projects/PianoOrbs',
-    info: 'Watch the orbs play notes as they hit the walls.',
-    date: 'February 11th, 2024',
-    component: PianoOrbs
-  }
-};
 
 function Project() {
   const [isSoundEnabled, setIsSoundEnabled] = useState(false);
   const { projectId } = useParams();
   const project = projects[projectId];
-
-  if (!project) return <Navigate replace to='/' />
 
   function handleSound() {
     setIsSoundEnabled(oldIsSoundEnabled => !oldIsSoundEnabled);
@@ -48,6 +20,8 @@ function Project() {
   function handleCode() {
     window.open(project.code, '_blank');
   }
+
+  if (!project) return <Navigate replace to='/' />
 
   return <div className='project'>
     <div className='project__component'><project.component /></div>
