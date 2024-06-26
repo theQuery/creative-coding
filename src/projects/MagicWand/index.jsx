@@ -128,7 +128,7 @@ class Effect {
         this.confettisCount = 20;
         this.sparkles = [];
         this.confettis = [];
-        this.mouseXY = [0, 0];
+        this.mouseXY = [];
         this.isMouseAway = true;
         this.isAudioEnabled = false;
         this.sounds = [explosion1Sound, explosion2Sound, explosion3Sound];
