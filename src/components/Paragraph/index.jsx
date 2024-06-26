@@ -6,10 +6,11 @@ import EnterIcon from '../../assets/enter.svg?react';
 import getRandInt from '../../utils/getRandInt';
 
 const paragraphs = [
-  "Dive into a world where code meets creativity. This website is a vibrant collection of my interactive canvas projects, each meticulously crafted to bring art and technology together in mesmerizing harmony.",
-  "Explore a diverse range of visual experiences, from generative art and algorithmic animations to dynamic data visualizations and playful experiments. Each project is a testament to the endless possibilities of creative coding, showcasing the beauty and innovation that can be achieved through programming.",
-  "Whether you're a fellow coder, a digital artist, or simply an admirer of the digital arts, I invite you to explore, interact, and be inspired by these creations. Thank you for visiting, and enjoy your journey through my creative coding showcase.",
-  "Signed by yours truly, Tom Morgenshtern Kristoffersen."
+  "Hey there! You've just landed in my digital galaxy, where code and creativity collide.",
+  "This space is dedicated to my interactive canvas projects, each one a unique star in the vast universe of creative coding.",
+  "From mesmerizing generative art to dynamic data visualizations and playful experiments, traverse the endless possibilities and infinite innovations that exploratory programming can offer.",
+  "Whether you're a fellow coder, a digital artist, or simply a curious explorer, I welcome you to embark on this cosmic journey through my creative coding showcase.",
+  "Enjoy the ride! Tom Morgenshtern Kristoffersen."
 ];
 
 function Paragraph() {
