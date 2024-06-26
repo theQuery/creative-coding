@@ -1,7 +1,7 @@
 import './index.css';
 import { useRef, useEffect } from 'react';
 import getRandInt from '../../utils/getRandInt';
-import tomImage from '../../assets/tom.webp';
+import backgroundImage from '../../assets/background.webp';
 
 class Speck {
     constructor(effect) {
@@ -137,7 +137,7 @@ class Background {
         if (imageURL) localStorage.setItem('bgImage', imageURL);
 
         if (localStorage.getItem('bgEnabled') === 'true') {
-            this.image = localStorage.getItem('bgImage') ?? tomImage;
+            this.image = localStorage.getItem('bgImage') ?? backgroundImage;
             this.position = { x: 50, y: 50 };
             this.setPosition();
             this.setOpacity();
