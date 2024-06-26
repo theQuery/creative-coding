@@ -6,90 +6,70 @@ import explosion2Sound from './assets/explosion-2.mp3';
 import explosion3Sound from './assets/explosion-3.mp3';
 
 class Sparkle {
-    constructor(ctx, mouseXY) {
-        this.ctx = ctx;
-        this.mouseX = mouseXY[0];
-        this.mouseY = mouseXY[1];
-        this.x = undefined;
-        this.y = undefined;
-        this.maxY = 300;
-        this.speedX = getRandInt(-20, 20);
-        this.speedY = getRandInt(100, 200);
+    constructor(effect) {
+        this.effect = effect;
+        this.ctx = effect.ctx[0];
+        this.position = { ...effect.mouse };
+        this.velocity = {
+            x: getRandInt(-20, 20),
+            y: getRandInt(100, 200)
+        }
         this.outerRadius = getRandInt(4, 6);
         this.innerRadius = getRandInt(1, 3);
         this.spikes = getRandInt(4, 8);
         this.hue = getRandInt(30, 50);
         this.opacity = 1;
-        this.disabledTime = Date.now();
-        this.resetTime = Date.now();
     }
 
     render() {
-        let x = this.x;
-        let y = this.y;
+        let x = this.position.x;
+        let y = this.position.y;
         let rot = Math.PI / 2 * 3;
         const step = Math.PI / this.spikes;
 
         this.ctx.beginPath();
-        this.ctx.moveTo(this.x, this.y - this.outerRadius);
+        this.ctx.moveTo(this.position.x, this.position.y - this.outerRadius);
         for (let i = 0; i < this.spikes; i++) {
-            x = this.x + Math.cos(rot) * this.outerRadius;
-            y = this.y + Math.sin(rot) * this.outerRadius;
+            x = this.position.x + Math.cos(rot) * this.outerRadius;
+            y = this.position.y + Math.sin(rot) * this.outerRadius;
             this.ctx.lineTo(x, y);
             rot += step;
 
-            x = this.x + Math.cos(rot) * this.innerRadius;
-            y = this.y + Math.sin(rot) * this.innerRadius;
+            x = this.position.x + Math.cos(rot) * this.innerRadius;
+            y = this.position.y + Math.sin(rot) * this.innerRadius;
             this.ctx.lineTo(x, y);
             rot += step;
         }
-        this.ctx.lineTo(this.x, this.y - this.outerRadius);
+        this.ctx.lineTo(this.position.x, this.position.y - this.outerRadius);
         this.ctx.closePath();
         this.ctx.fillStyle = `hsl(${this.hue}, 100%, 50%, ${this.opacity})`;
         this.ctx.fill();
     }
 
-    update(deltaTime, mouseXY, isMouseAway, index) {
-        this.updatePosition(deltaTime, mouseXY, isMouseAway, index);
+    update(deltaTime) {
+        this.updatePosition(deltaTime);
         this.updateVisuals(deltaTime);
     }
 
-    updatePosition(deltaTime, mouseXY, isMouseAway, index) {
-        const now = Date.now();
-        const isPremature = this.disabledTime + index * this.speedY > now;
-        const isNotResetting = this.y - this.mouseY < this.maxY;
-
-        if (isMouseAway) this.disabledTime = now;
-
-        const isDisabledBeforeReset = this.disabledTime < this.resetTime;
-
-        if (isPremature && isDisabledBeforeReset) {
-            this.x = undefined;
-            this.y = undefined;
-        } else if (isNotResetting || isMouseAway) {
-            this.x += this.speedX * deltaTime;
-            this.y += this.speedY * deltaTime;
-        } else {
-            this.resetTime = now;
-            this.mouseX = mouseXY[0];
-            this.mouseY = mouseXY[1];
-            this.x = this.mouseX;
-            this.y = this.mouseY;
-        }
+    updatePosition(deltaTime) {
+        this.position.x += this.velocity.x * deltaTime;
+        this.position.y += this.velocity.y * deltaTime;
     }
 
     updateVisuals(deltaTime) {
-        this.opacity = 1 - (1 / this.maxY * (this.y - this.mouseY));
+        this.opacity = Math.max(this.opacity - 1 * deltaTime, 0);
     }
 }
 
 class Confetti {
-    constructor(ctx, mouseXY) {
-        this.ctx = ctx;
-        this.x = mouseXY[0];
-        this.y = mouseXY[1];
-        this.speedX = getRandInt(-500, 500);
-        this.speedY = getRandInt(-500, 100);
+    constructor(effect) {
+        this.effect = effect;
+        this.ctx = effect.ctx[1];
+        this.position = { ...effect.mouse };
+        this.velocity = {
+            x: getRandInt(-500, 500),
+            y: getRandInt(-500, 100)
+        }
         this.radius = getRandInt(4, 8);
         this.hue = getRandInt(1, 360);
         this.gravity = 1000;
@@ -98,7 +78,7 @@ class Confetti {
     render() {
         this.ctx.fillStyle = `hsl(${this.hue}, 100%, 50%)`;
         this.ctx.beginPath();
-        this.ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
+        this.ctx.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI, false);
         this.ctx.fill();
         this.ctx.closePath();
     }
@@ -109,9 +89,9 @@ class Confetti {
     }
 
     updatePosition(deltaTime) {
-        this.x += this.speedX * deltaTime;
-        this.y += this.speedY * deltaTime;
-        this.speedY += this.gravity * deltaTime;
+        this.position.x += this.velocity.x * deltaTime;
+        this.position.y += this.velocity.y * deltaTime;
+        this.velocity.y += this.gravity * deltaTime;
     }
 
     updateVisuals(deltaTime) {
@@ -124,20 +104,20 @@ class Effect {
     constructor(canvas, ctx) {
         this.canvas = canvas;
         this.ctx = ctx;
-        this.sparklesCount = 50;
-        this.confettisCount = 20;
+        this.sparklesCount = 3;
+        this.confettisCount = 30;
         this.sparkles = [];
         this.confettis = [];
-        this.mouseXY = [];
+        this.mouse = { x: 0, y: 0 };
         this.isMouseAway = true;
         this.isAudioEnabled = false;
         this.sounds = [explosion1Sound, explosion2Sound, explosion3Sound];
         this.soundBtn = document.querySelector('[data-sound]');
         this.resizeCanvas();
-        this.createSparkles();
+        setInterval(() => !this.isMouseAway && this.createSparkles(), 100);
         window.addEventListener('resize', this.resizeCanvas);
         this.canvas[0].addEventListener('click', this.createConfettis);
-        this.canvas[0].addEventListener('mousemove', this.setMouseXY);
+        this.canvas[0].addEventListener('mousemove', this.setMousePosition);
         this.canvas[0].addEventListener('mouseenter', this.setIsMouseAway);
         this.canvas[0].addEventListener('mouseleave', this.setIsMouseAway);
     }
@@ -151,13 +131,13 @@ class Effect {
 
     createSparkles() {
         for (let i = 0; i < this.sparklesCount; i++) {
-            this.sparkles.push(new Sparkle(this.ctx[0], this.mouseXY));
+            this.sparkles.push(new Sparkle(this));
         }
     }
 
     createConfettis = () => {
         for (let i = 0; i < this.confettisCount; i++) {
-            this.confettis.push(new Confetti(this.ctx[1], this.mouseXY));
+            this.confettis.push(new Confetti(this));
         }
 
         if (this.isAudioEnabled) {
@@ -168,12 +148,13 @@ class Effect {
         }
     }
 
-    setMouseXY = ({ x, y }) => {
-        this.mouseXY = [x, y];
+    setMousePosition = ({ x, y }) => {
+        this.mouse = { x, y };
+        this.createSparkles();
     }
 
-    setIsMouseAway = (event) => {
-        this.isMouseAway = event.type === 'mouseleave';
+    setIsMouseAway = ({ type }) => {
+        this.isMouseAway = type === 'mouseleave';
     }
 
     render(deltaTime) {
@@ -183,11 +164,12 @@ class Effect {
     }
 
     renderSparkles(deltaTime) {
-        for (const index in this.sparkles) {
-            const sparkle = this.sparkles[index];
+        for (const sparkle of this.sparkles) {
             sparkle.render();
-            sparkle.update(deltaTime, this.mouseXY, this.isMouseAway, index);
+            sparkle.update(deltaTime);
         }
+        this.sparkles = this.sparkles
+            .filter(sparkle => sparkle.opacity > 0);
     }
 
     renderConfettis(deltaTime) {
