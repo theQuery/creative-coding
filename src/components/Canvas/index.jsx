@@ -136,7 +136,9 @@ class Background {
     setImage(imageURL) {
         if (imageURL) localStorage.setItem('bgImage', imageURL);
 
-        if (localStorage.getItem('bgEnabled') === 'true') {
+        if (localStorage.getItem('bgDisabled') === 'true') {
+            this.effect.canvas.style.backgroundImage = 'none';
+        } else {
             this.image = localStorage.getItem('bgImage') ?? backgroundImage;
             this.position = { x: 50, y: 50 };
             this.setPosition();
@@ -146,8 +148,6 @@ class Background {
             this.effect.canvas.style.backgroundImage = `radial-gradient(`
                 + `circle at bottom left, hsl(0, 0%, 10%, ${this.opacity}), `
                 + `hsl(0, 0%, 0%) 70%), url(${this.image})`;
-        } else {
-            this.effect.canvas.style.backgroundImage = 'none';
         }
     }
 
@@ -177,8 +177,8 @@ class Background {
     }
 
     toggle() {
-        const isBgEnabled = localStorage.getItem('bgEnabled') === 'true';
-        localStorage.setItem('bgEnabled', !isBgEnabled);
+        const isBgDisabled = localStorage.getItem('bgDisabled') === 'true';
+        localStorage.setItem('bgDisabled', !isBgDisabled);
         this.setImage();
     }
 
