@@ -7,11 +7,15 @@ import SoundOnIcon from '../../assets/sound-on.svg?react';
 import SoundOffIcon from '../../assets/sound-off.svg?react';
 import CodeIcon from '../../assets/code.svg?react';
 import InfoIcon from '../../assets/info.svg?react';
+import PreviousIcon from '../../assets/previous.svg?react';
+import NextIcon from '../../assets/next.svg?react';
 
 function Project() {
   const [isSoundEnabled, setIsSoundEnabled] = useState(false);
   const { projectId } = useParams();
   const project = projects[projectId];
+  const previousProject = getPreviousProject();
+  const nextProject = getNextProject();
 
   function handleSound() {
     setIsSoundEnabled(oldIsSoundEnabled => !oldIsSoundEnabled);
@@ -19,6 +23,30 @@ function Project() {
 
   function handleCode() {
     window.open(project.code, '_blank');
+  }
+
+  function getPreviousProject() {
+    const projectIds = Object.keys(projects);
+    const lastProjectIndex = projectIds.length - 1;
+    let previousProjectIndex = project.index - 1;
+
+    previousProjectIndex = previousProjectIndex < 0
+      ? lastProjectIndex : previousProjectIndex;
+
+    const previousProjectId = projectIds[previousProjectIndex];
+    return projects[previousProjectId];
+  }
+
+  function getNextProject() {
+    const projectIds = Object.keys(projects);
+    const lastProjectIndex = projectIds.length - 1;
+    let nextProjectIndex = project.index + 1;
+
+    nextProjectIndex = nextProjectIndex > lastProjectIndex
+      ? 0 : nextProjectIndex;
+
+    const nextProjectId = projectIds[nextProjectIndex];
+    return projects[nextProjectId];
   }
 
   if (!project) return <Navigate replace to='/' />
@@ -34,7 +62,11 @@ function Project() {
         <button onClick={handleCode}><CodeIcon /></button>
         <button data-info={project.info}><InfoIcon /></button>
       </div>
-      <h1 className='project__name'>{project.name}</h1>
+      <div className='project__picker'>
+        <button data-link={previousProject.link}><PreviousIcon /></button>
+        <h1 className='project__name'>{project.name}</h1>
+        <button data-link={nextProject.link}><NextIcon /></button>
+      </div>
     </div>
   </div>
 }

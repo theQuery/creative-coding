@@ -28,10 +28,16 @@ setProperties();
 
 function setProperties() {
     for (const projectId in projects) {
+        setIndex(projectId);
         setLink(projectId);
         setName(projectId);
         setCode(projectId);
     }
+}
+
+function setIndex(projectId) {
+    const index = Object.keys(projects).indexOf(projectId);
+    projects[projectId].index = index;
 }
 
 function setLink(projectId) {

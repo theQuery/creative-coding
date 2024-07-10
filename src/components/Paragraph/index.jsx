@@ -1,7 +1,7 @@
 import './index.css';
 import { useState, useRef, useEffect } from 'react';
 import ReplayIcon from '../../assets/replay.svg?react';
-import NextIcon from '../../assets/next.svg?react';
+import ContinueIcon from '../../assets/continue.svg?react';
 import EnterIcon from '../../assets/enter.svg?react';
 import getRandInt from '../../utils/getRandInt';
 
@@ -118,7 +118,7 @@ function Paragraph() {
         onClick={handleClick}
       >
         {getIsFullParagraph()
-          ? getIsLastParagraph() ? <ReplayIcon /> : <NextIcon />
+          ? getIsLastParagraph() ? <ReplayIcon /> : <ContinueIcon />
           : <EnterIcon />}
       </button>
       {paragraphText}

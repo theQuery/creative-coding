@@ -1,4 +1,4 @@
-.project__component>canvas {
+.project__component>* {
     position: fixed;
 }
 
@@ -6,15 +6,16 @@
     position: fixed;
     display: flex;
     justify-content: space-between;
-    align-items: center;
     width: 100%;
     padding: 0.5rem;
     font-family: var(--primary-font);
     pointer-events: none;
 }
 
-.project__buttons {
+.project__buttons,
+.project__picker {
     display: flex;
+    align-items: center;
     overflow: hidden;
     pointer-events: all;
 
@@ -33,7 +34,7 @@
             border-radius: 50%;
         }
 
-        &:last-child {
+        &[data-info] {
             cursor: help;
         }
 
@@ -53,7 +54,7 @@
                 animation: project__move-background 5s linear infinite;
             }
 
-            &:last-child::after {
+            &[data-info]::after {
                 content: attr(data-info);
                 margin-left: 0.5rem;
                 text-align: left;
@@ -73,9 +74,14 @@
     }
 }
 
+.project__picker {
+    flex-shrink: 0;
+}
+
 .project__name {
     margin: 0;
     padding: 0.5rem;
     font-size: 1rem;
+    font-weight: normal;
     white-space: nowrap;
 }
