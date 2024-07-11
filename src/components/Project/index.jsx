@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { useParams, Navigate } from 'react-router-dom';
 import projects from '../../projects';
 import BackIcon from '../../assets/back.svg?react';
+import ReloadIcon from '../../assets/reload.svg?react';
 import SoundOnIcon from '../../assets/sound-on.svg?react';
 import SoundOffIcon from '../../assets/sound-off.svg?react';
 import CodeIcon from '../../assets/code.svg?react';
@@ -11,11 +12,16 @@ import PreviousIcon from '../../assets/previous.svg?react';
 import NextIcon from '../../assets/next.svg?react';
 
 function Project() {
+  const [reloadKey, setReloadKey] = useState(false);
   const [isSoundEnabled, setIsSoundEnabled] = useState(false);
   const { projectId } = useParams();
   const project = projects[projectId];
   const previousProject = getPreviousProject();
   const nextProject = getNextProject();
+
+  function handleReload() {
+    setReloadKey(oldReloadKey => !oldReloadKey);
+  }
 
   function handleSound() {
     setIsSoundEnabled(oldIsSoundEnabled => !oldIsSoundEnabled);
@@ -52,10 +58,13 @@ function Project() {
   if (!project) return <Navigate replace to='/' />
 
   return <div className='project'>
-    <div className='project__component'><project.component /></div>
+    <div className='project__component'>
+      <project.component key={reloadKey} />
+    </div>
     <div className='project__navbar'>
       <div className='project__buttons'>
         <button data-link='/'><BackIcon /></button>
+        <button onClick={handleReload}><ReloadIcon /></button>
         <button onClick={handleSound} data-sound={isSoundEnabled}>
           {isSoundEnabled ? <SoundOnIcon /> : <SoundOffIcon />}
         </button>
