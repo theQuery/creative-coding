@@ -91,8 +91,8 @@ function Paragraph() {
   }
 
   function addLetterToParagraph(letters) {
-    const delay = getRandInt(0, 15)
-      ? getRandInt(10, 50) : getRandInt(50, 500);
+    const delay = getRandInt(0, 10)
+      ? getRandInt(10, 50) : getRandInt(50, 200);
 
     timeoutRef.current = setTimeout(() => {
       const letter = letters.shift();
